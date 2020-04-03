@@ -20,28 +20,32 @@
     var CONFIG = {"hostname":"blog.peggy.xin","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="澹泊明志，宁静致远">
-<meta property="og:url" content="https://blog.peggy.xin/index.html">
+  <meta name="description" content="介绍machinery是一个go语言实现的异步任务队列框架，可对队列消息及结果集持久化存储。 概念Brokermessenger broker 消息代理可以形象比喻为邮局的角色：发信人 -&gt; 邮局 -&gt; 收信人简单来说，broker就是用来接收消息的，再根据一定的策略把消息推送给消费者进行消费。 machinery支持多种broker类型，比如AMPQ&#x2F;Redis&#x2F;AWS SQS&#x2F;GC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go-machinery">
+<meta property="og:url" content="https://blog.peggy.xin/2020/04/03/go-machinery/index.html">
 <meta property="og:site_name" content="澹泊明志，宁静致远">
+<meta property="og:description" content="介绍machinery是一个go语言实现的异步任务队列框架，可对队列消息及结果集持久化存储。 概念Brokermessenger broker 消息代理可以形象比喻为邮局的角色：发信人 -&gt; 邮局 -&gt; 收信人简单来说，broker就是用来接收消息的，再根据一定的策略把消息推送给消费者进行消费。 machinery支持多种broker类型，比如AMPQ&#x2F;Redis&#x2F;AWS SQS&#x2F;GC">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-03T08:35:14.000Z">
+<meta property="article:modified_time" content="2020-04-03T09:30:56.925Z">
 <meta property="article:author" content="prettybot">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://blog.peggy.xin/">
+<link rel="canonical" href="https://blog.peggy.xin/2020/04/03/go-machinery/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>澹泊明志，宁静致远</title>
+  <title>go-machinery | 澹泊明志，宁静致远</title>
   
 
 
@@ -139,9 +143,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -157,10 +162,9 @@
       <meta itemprop="name" content="澹泊明志，宁静致远">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/03/go-machinery/" class="post-title-link" itemprop="url">go-machinery</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          go-machinery
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -174,6 +178,13 @@
             </span>
 
           
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
 
         </div>
       </header>
@@ -184,7 +195,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p><code>machinery</code>是一个go语言实现的异步任务队列框架，可对队列消息及结果集持久化存储。</p>
+        <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p><code>machinery</code>是一个go语言实现的异步任务队列框架，可对队列消息及结果集持久化存储。</p>
 <h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><h4 id="Broker"><a href="#Broker" class="headerlink" title="Broker"></a>Broker</h4><p>messenger broker 消息代理<br>可以形象比喻为邮局的角色：<br>发信人 -&gt; 邮局 -&gt; 收信人<br>简单来说，broker就是用来接收消息的，再根据一定的策略把消息推送给消费者进行消费。</p>
 <p>machinery支持多种broker类型，比如AMPQ/Redis/AWS SQS/GCP Pub/Sub</p>
 <p>AMPQ(Advanced Message Queuing Protocol)只是一种协议, RabbitMQ是该协议的经典实现。</p>
@@ -228,97 +239,43 @@
 </ul>
 <p>除此之外，框架还支持失败任务重试、任务延时执行等。</p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.peggy.xin/2020/04/03/hello-world/">
+        
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="prettybot">
-      <meta itemprop="description" content="">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="澹泊明志，宁静致远">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/03/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-03 11:51:30" itemprop="dateCreated datePublished" datetime="2020-04-03T11:51:30+08:00">2020-04-03</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/03/hello-world/" rel="prev" title="Hello World">
+      <i class="fa fa-chevron-left"></i> Hello World
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -365,6 +322,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">2.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Broker"><span class="nav-number">2.1.</span> <span class="nav-text">Broker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ResultBackend"><span class="nav-number">2.2.</span> <span class="nav-text">ResultBackend</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Server"><span class="nav-number">2.3.</span> <span class="nav-text">Server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Workers"><span class="nav-number">2.4.</span> <span class="nav-text">Workers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Tasks"><span class="nav-number">2.5.</span> <span class="nav-text">Tasks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Register-Tasks"><span class="nav-number">2.6.</span> <span class="nav-text">Register Tasks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Signature"><span class="nav-number">2.7.</span> <span class="nav-text">Signature</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Supported-Types"><span class="nav-number">2.8.</span> <span class="nav-text">Supported Types</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sending-Tasks"><span class="nav-number">2.9.</span> <span class="nav-text">Sending Tasks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Keeping-Results"><span class="nav-number">2.10.</span> <span class="nav-text">Keeping Results</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Workflows"><span class="nav-number">2.11.</span> <span class="nav-text">Workflows</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -488,6 +446,26 @@
 
   
 
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://blog.peggy.xin/2020/04/03/go-machinery/";
+    this.page.identifier = "2020/04/03/go-machinery/";
+    this.page.title = "go-machinery";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://prettybot.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
 
 </body>
 </html>
